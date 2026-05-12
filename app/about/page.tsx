@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to satisfy Framer Motion's Easing type requirements
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 const VALUES = [
   { id: "01", title: "Integrity", desc: "100% transparency across all financial, structural, and charitable endeavors." },
@@ -13,7 +14,7 @@ const VALUES = [
 ];
 
 // Staggered Animation Variants
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -21,9 +22,16 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: premiumEase } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 1, 
+      ease: premiumEase 
+    } 
+  }
 };
 
 export default function AboutPage() {
@@ -93,7 +101,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                animate={{ y: [0, -15, 0] }} // Continuous floating animation
+                animate={{ y: [0, -15, 0] }}
                 transition={{ 
                   y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                   opacity: { duration: 1, delay: 0.5, ease: premiumEase }
@@ -108,7 +116,6 @@ export default function AboutPage() {
                 />
               </motion.div>
               
-              {/* Decorative Frame Elements */}
               <div className="absolute -top-6 left-[85%] w-16 h-16 border-t border-r border-zinc-800 pointer-events-none hidden md:block" />
               <div className="absolute top-[80%] -left-6 w-16 h-16 border-b border-l border-zinc-800 pointer-events-none hidden md:block" />
             </motion.div>
@@ -146,21 +153,21 @@ export default function AboutPage() {
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 className="mt-10 bg-zinc-900/50 border border-zinc-800 p-6 md:p-8 rounded-3xl flex flex-col sm:flex-row items-center sm:items-center gap-8 shadow-2xl cursor-default"
               >
-                 <div className="w-32 sm:w-36 shrink-0 aspect-[4/5] rounded-xl overflow-hidden border border-zinc-700 shadow-xl bg-zinc-950">
-                   <motion.div 
-                     whileHover={{ scale: 1.1 }}
-                     transition={{ duration: 0.8 }}
-                     className="w-full h-full bg-cover bg-center"
-                     style={{ backgroundImage: "url('/rotary-award.png')" }} 
-                   />
-                 </div>
+                  <div className="w-32 sm:w-36 shrink-0 aspect-[4/5] rounded-xl overflow-hidden border border-zinc-700 shadow-xl bg-zinc-950">
+                    <motion.div 
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.8 }}
+                      className="w-full h-full bg-cover bg-center"
+                      style={{ backgroundImage: "url('/rotary-award.png')" }} 
+                    />
+                  </div>
 
-                 <div className="text-center sm:text-left">
-                   <p className="font-orbitron text-[9px] tracking-[0.3em] text-amber-500 uppercase mb-3">Honors & Recognition</p>
-                   <p className="font-light text-sm md:text-base text-zinc-300 leading-relaxed">
-                     Conferred with an <strong className="text-white font-medium">Honorary Doctorate</strong> in recognition of distinguished contributions to Social Work & Business Management. Proudly acknowledged by the <strong className="text-white font-medium">Rotary Club of Kundara, 2026</strong>.
-                   </p>
-                 </div>
+                  <div className="text-center sm:text-left">
+                    <p className="font-orbitron text-[9px] tracking-[0.3em] text-amber-500 uppercase mb-3">Honors & Recognition</p>
+                    <p className="font-light text-sm md:text-base text-zinc-300 leading-relaxed">
+                      Conferred with an <strong className="text-white font-medium">Honorary Doctorate</strong> in recognition of distinguished contributions to Social Work & Business Management. Proudly acknowledged by the <strong className="text-white font-medium">Rotary Club of Kundara, 2026</strong>.
+                    </p>
+                  </div>
               </motion.div>
 
               <motion.div variants={itemVariants} className="mt-12 pt-8 border-t border-zinc-800 flex items-center gap-8">
@@ -175,7 +182,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Vision & Mission (Reduced Text + Hover Animations) */}
+      {/* 3. Vision & Mission */}
       <section className="py-24 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
         <motion.div 
           variants={containerVariants}
@@ -230,7 +237,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* 4. Core Values (Staggered Animated Grid) */}
+      {/* 4. Core Values */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-white border-t border-zinc-100">
         <div className="max-w-[1400px] mx-auto">
           <motion.div 
@@ -251,7 +258,7 @@ export default function AboutPage() {
             viewport={{ once: true, margin: "-100px" }}
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
           >
-            {VALUES.map((val, i) => (
+            {VALUES.map((val) => (
               <motion.div 
                 key={val.id}
                 variants={itemVariants}
