@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to resolve the TypeScript Easing build error
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 export default function ContactSection() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
