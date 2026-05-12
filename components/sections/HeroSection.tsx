@@ -35,7 +35,8 @@ const SECTORS = [
   }
 ];
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to prevent the Framer Motion Easing type error
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 export default function HeroSection() {
   const [active, setActive] = useState(0);

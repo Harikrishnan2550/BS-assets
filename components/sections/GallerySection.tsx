@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
 import { useState, useRef } from "react";
 
 const PROJECTS = [
@@ -55,7 +55,8 @@ const PROJECTS = [
   },
 ];
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to resolve the TypeScript Easing build error
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 export default function GallerySection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

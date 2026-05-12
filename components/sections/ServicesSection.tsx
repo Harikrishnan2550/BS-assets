@@ -39,7 +39,8 @@ const SERVICES = [
   }
 ];
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to resolve the TypeScript Easing build error
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 export default function ServicesSection() {
   const [hovered, setHovered] = useState<number | null>(null);

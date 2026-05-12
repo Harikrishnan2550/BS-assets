@@ -24,10 +24,10 @@ export default function SplashScreen() {
       {isLoading && (
         <motion.div
           key="splash"
-          // The ultimate luxury curtain reveal: a severe, incredibly smooth Expo bezier curve
+          // FIX: Added 'as const' to the easing array
           exit={{ 
             y: "-100%", 
-            transition: { duration: 1.2, ease: [0.85, 0, 0.15, 1], delay: 0.1 } 
+            transition: { duration: 1.2, ease: [0.85, 0, 0.15, 1] as const, delay: 0.1 } 
           }}
           className="fixed inset-0 z-[99999] bg-[#050505] flex items-center justify-center m-0 p-0"
         >
@@ -36,13 +36,13 @@ export default function SplashScreen() {
             // Cinematic fade-in with a very slight blur removal and slow scale
             initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95 }}
             animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-            // The logo dissolves slightly upward before the black curtain moves
+            // FIX: Added 'as const' to the easing array here as well
             exit={{ 
               opacity: 0, 
               filter: "blur(4px)", 
               scale: 1.02,
               y: -20,
-              transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+              transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const } 
             }}
             transition={{ duration: 1.4, ease: "easeOut" }}
             className="flex flex-col items-center gap-6"
@@ -55,8 +55,6 @@ export default function SplashScreen() {
                 className="w-full h-full object-contain"
               />
             </div>
-            
-
           </motion.div>
         </motion.div>
       )}
