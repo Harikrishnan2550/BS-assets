@@ -4,7 +4,8 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const softEase = [0.43, 0.13, 0.23, 0.96];
+// FIX: Added 'as const' to resolve the TypeScript Easing build error
+const softEase = [0.43, 0.13, 0.23, 0.96] as const;
 
 export default function AboutSection() {
   const containerRef = useRef(null);
@@ -63,10 +64,13 @@ export default function AboutSection() {
             className="relative w-full max-w-5xl p-3 md:p-4 bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.06)] rounded-[2.5rem] md:rounded-[3.5rem] overflow-visible"
           >
             <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-[2rem] md:rounded-[3rem]">
+              {/* FIX: Combined duplicate style props so imgY animation works */}
               <motion.div 
-                style={{ y: imgY }}
-                className="absolute inset-x-0 -top-[30%] -bottom-[30%] bg-cover bg-center  transition-all duration-1000"
-                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')` }} 
+                className="absolute inset-x-0 -top-[30%] -bottom-[30%] bg-cover bg-center transition-all duration-1000"
+                style={{ 
+                  y: imgY,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')` 
+                }} 
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-950/30 opacity-60" />
             </div>
