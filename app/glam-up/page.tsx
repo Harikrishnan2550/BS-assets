@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+// FIX: Imported Variants from framer-motion
+import { motion, Variants } from "framer-motion";
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to satisfy TypeScript's Easing tuple requirement
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
-const containerVariants = {
+// FIX: Added ': Variants' typing
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -13,9 +16,17 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+// FIX: Added ': Variants' typing
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: premiumEase } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 1.2, 
+      ease: premiumEase 
+    } 
+  }
 };
 
 const CORE_EXPERIENCES = [
@@ -64,17 +75,15 @@ export default function GlamUpPage() {
             className="w-full aspect-video md:aspect-[15/8] rounded-[2rem] overflow-hidden relative shadow-2xl"
           >
             <div 
-              className="absolute inset-0 bg-cover bg-center  transition-all duration-1000 scale-105 hover:scale-100"
+              className="absolute inset-0 bg-cover bg-center transition-all duration-1000 scale-105 hover:scale-100"
               style={{ backgroundImage: "url('/glam-up.png')" }} 
             />
             <div className="absolute inset-0 bg-zinc-950/20" />
             
             {/* CTA Button Overlaid on Image */}
-           
           </motion.div>
 
           {/* Floating Development Teaser */}
-         
           
         </motion.div>
       </section>
