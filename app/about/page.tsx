@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
-// FIX: Added 'as const' to satisfy Framer Motion's Easing type requirements
+// FIX: Added 'as const' to tell TypeScript this is a fixed cubic-bezier tuple
 const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 const VALUES = [
@@ -29,7 +29,7 @@ const itemVariants: Variants = {
     y: 0, 
     transition: { 
       duration: 1, 
-      ease: premiumEase 
+      ease: premiumEase // Now correctly typed
     } 
   }
 };
@@ -80,7 +80,6 @@ export default function AboutPage() {
               transition={{ duration: 1.5, ease: premiumEase }}
               className="lg:col-span-5 relative group mt-10 lg:mt-0"
             >
-              {/* Main Portrait */}
               <div className="aspect-[3/4] md:aspect-[4/5] w-[85%] overflow-hidden rounded-[2rem] bg-zinc-900 border border-zinc-800 relative shadow-2xl">
                 <motion.div 
                   whileHover={{ scale: 1.05 }}
@@ -96,12 +95,11 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* FLOATING Medal Memento Image */}
               <motion.div 
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                animate={{ y: [0, -15, 0] }}
+                animate={{ y: [0, -15, 0] }} 
                 transition={{ 
                   y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                   opacity: { duration: 1, delay: 0.5, ease: premiumEase }
@@ -120,7 +118,7 @@ export default function AboutPage() {
               <div className="absolute top-[80%] -left-6 w-16 h-16 border-b border-l border-zinc-800 pointer-events-none hidden md:block" />
             </motion.div>
 
-            {/* Right: Founder's Philosophy & Charity Mission */}
+            {/* Right: Founder's Philosophy */}
             <motion.div 
               variants={containerVariants}
               initial="hidden"
@@ -142,16 +140,16 @@ export default function AboutPage() {
                   The momentum behind BS Asset Solutions is driven by a dual mandate: engineering premium commercial success while utilizing it as a formidable tool for social infrastructure.
                 </p>
                 <p>
-                  Through the <span className="text-white font-medium">BS Charity</span> division, we redirect our growth into essential community outreach across Kerala. We don't just build assets; we build the future.
+                  Through the <span className="text-white font-medium">BS Charity</span> division, we redirect our growth into essential community outreach across Kerala.
                 </p>
               </motion.div>
 
-              {/* Honors Block with Hover Lift */}
+              {/* Honors Block */}
               <motion.div 
                 variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.01 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="mt-10 bg-zinc-900/50 border border-zinc-800 p-6 md:p-8 rounded-3xl flex flex-col sm:flex-row items-center sm:items-center gap-8 shadow-2xl cursor-default"
+                className="mt-10 bg-zinc-900/50 border border-zinc-800 p-6 md:p-8 rounded-3xl flex flex-col sm:flex-row items-center gap-8 shadow-2xl cursor-default"
               >
                   <div className="w-32 sm:w-36 shrink-0 aspect-[4/5] rounded-xl overflow-hidden border border-zinc-700 shadow-xl bg-zinc-950">
                     <motion.div 
@@ -165,7 +163,7 @@ export default function AboutPage() {
                   <div className="text-center sm:text-left">
                     <p className="font-orbitron text-[9px] tracking-[0.3em] text-amber-500 uppercase mb-3">Honors & Recognition</p>
                     <p className="font-light text-sm md:text-base text-zinc-300 leading-relaxed">
-                      Conferred with an <strong className="text-white font-medium">Honorary Doctorate</strong> in recognition of distinguished contributions to Social Work & Business Management. Proudly acknowledged by the <strong className="text-white font-medium">Rotary Club of Kundara, 2026</strong>.
+                      Conferred with an <strong className="text-white font-medium">Honorary Doctorate</strong>. Proudly acknowledged by the <strong className="text-white font-medium">Rotary Club of Kundara, 2026</strong>.
                     </p>
                   </div>
               </motion.div>
@@ -177,7 +175,6 @@ export default function AboutPage() {
                 </div>
               </motion.div>
             </motion.div>
-
           </div>
         </div>
       </section>
@@ -191,47 +188,25 @@ export default function AboutPage() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid md:grid-cols-2 gap-12 md:gap-24"
         >
-          {/* Vision Card */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -15, boxShadow: "0px 40px 80px -20px rgba(0,0,0,0.1)" }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="bg-zinc-50 p-12 md:p-16 rounded-[2.5rem] border border-zinc-100 relative overflow-hidden group cursor-default"
           >
-            <motion.div 
-              initial={{ opacity: 0.05, rotate: 0 }}
-              whileHover={{ opacity: 0.1, rotate: 5, scale: 1.1 }}
-              transition={{ duration: 0.8 }}
-              className="absolute top-0 right-0 p-8"
-            >
-              <span className="font-audiowide text-7xl md:text-8xl text-zinc-950">V</span>
-            </motion.div>
-            
             <h2 className="font-audiowide text-3xl mb-8 uppercase relative z-10">Our Vision</h2>
             <p className="text-zinc-500 leading-relaxed font-light text-lg relative z-10">
-              To unite diverse industries through uncompromising premium quality. From financial strategy to landmark structures and social upliftment, our ultimate goal is to leave a lasting, positive legacy in Kerala.
+              To unite diverse industries through uncompromising premium quality and leave a lasting legacy in Kerala.
             </p>
           </motion.div>
 
-          {/* Mission Card */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -15, boxShadow: "0px 40px 80px -20px rgba(0,0,0,0.1)" }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="bg-zinc-50 p-12 md:p-16 rounded-[2.5rem] border border-zinc-100 relative overflow-hidden group cursor-default"
           >
-            <motion.div 
-              initial={{ opacity: 0.05, rotate: 0 }}
-              whileHover={{ opacity: 0.1, rotate: -5, scale: 1.1 }}
-              transition={{ duration: 0.8 }}
-              className="absolute top-0 right-0 p-8"
-            >
-              <span className="font-audiowide text-7xl md:text-8xl text-zinc-950">M</span>
-            </motion.div>
-
             <h2 className="font-audiowide text-3xl mb-8 uppercase relative z-10">Our Mission</h2>
             <p className="text-zinc-500 leading-relaxed font-light text-lg relative z-10">
-              To operate with absolute transparency, innovative solutions, and deep empathy for our communities. We don't just establish balance sheets and businesses; we engineer trust.
+              To operate with absolute transparency, innovative solutions, and deep empathy for our communities.
             </p>
           </motion.div>
         </motion.div>
@@ -263,16 +238,8 @@ export default function AboutPage() {
                 key={val.id}
                 variants={itemVariants}
                 whileHover={{ y: -10, scale: 1.02, backgroundColor: "#09090b", color: "#ffffff" }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="p-10 border border-zinc-200 rounded-[2rem] text-zinc-950 transition-colors group cursor-default shadow-sm hover:shadow-2xl"
               >
-                <motion.div 
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 10 }}
-                  className="font-orbitron text-sm text-zinc-300 group-hover:text-zinc-600 transition-colors mb-12"
-                >
-                  {val.id} //
-                </motion.div>
                 <h3 className="font-audiowide text-2xl uppercase mb-4">{val.title}</h3>
                 <p className="font-light text-zinc-500 group-hover:text-zinc-400 leading-relaxed transition-colors">
                   {val.desc}
@@ -295,12 +262,12 @@ export default function AboutPage() {
           <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-400 uppercase mb-6 block">Strategic Alignment</span>
           <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tight mb-8">Partner With Excellence</h2>
           <p className="text-zinc-500 mb-12 leading-relaxed font-light text-lg">
-            Discover how BS Asset Solutions can assist you across our diverse range of premium services and developments.
+            Discover how BS Asset Solutions can assist you across our diverse range of services.
           </p>
           
           <Link 
             href="/contact" 
-            className="group flex items-center justify-between gap-8 bg-zinc-950 text-white px-8 py-5 rounded-full shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-500"
+            className="group flex items-center justify-between gap-8 bg-zinc-950 text-white px-8 py-5 rounded-full shadow-xl hover:scale-105 transition-all duration-500"
           >
             <span className="font-orbitron text-[10px] font-bold tracking-[0.4em] uppercase ml-4">Engage Our Team</span>
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-zinc-950 group-hover:rotate-45 transition-transform duration-500">
