@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-// Buttery smooth, luxurious easing
-const luxuryEase = [0.25, 1, 0.5, 1];
+// FIX: Added 'as const' to satisfy TypeScript for build
+const luxuryEase = [0.25, 1, 0.5, 1] as const;
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -14,9 +14,16 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.5, ease: luxuryEase } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 1.5, 
+      ease: luxuryEase 
+    } 
+  }
 };
 
 const CAPABILITIES = [
@@ -47,13 +54,13 @@ export default function ConstructionPage() {
           
           {/* OVERLAYS FOR TEXT READABILITY */}
           {/* 1. Base wash & subtle blur to soften the busy image globally */}
-          <div className="absolute inset-0 bg-[#FAF9F6]/20 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-[#FAF9F6]/30 backdrop-blur-[2px]" />
           
           {/* 2. Desktop: Gradient from left to right (protects text on the left side) */}
-          <div className="hidden md:block absolute inset-0 w-3/4 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/80 to-transparent" />
+          <div className="hidden md:block absolute inset-0 w-3/4 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent" />
           
           {/* 3. Mobile: Stronger gradient from bottom to top (protects text at the bottom) */}
-          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/90 to-[#FAF9F6]/10" />
+          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6] to-[#FAF9F6]/20" />
           
           {/* 4. Universal bottom fade to seamlessly blend the image into the next section */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent" />
@@ -75,7 +82,7 @@ export default function ConstructionPage() {
 
               <motion.h1 
                 variants={itemVariants}
-                className="font-audiowide text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] uppercase tracking-tighter drop-shadow-sm"
+                className="font-audiowide text-5xl md:text-7xl lg:text-[8rem] leading-[1.1] uppercase tracking-tighter drop-shadow-sm text-zinc-950"
               >
                 Crafting <br />
                 Timeless Spaces.
@@ -83,7 +90,7 @@ export default function ConstructionPage() {
             </div>
 
             <motion.div variants={itemVariants} className="max-w-sm flex flex-col gap-10 md:gap-8">
-              <p className="text-base md:text-lg leading-relaxed text-stone-800 font-medium mt-10 md:mt-0">
+              <p className="text-base md:text-lg leading-relaxed text-zinc-800 font-medium mt-10 md:mt-0">
                 We believe architecture is the ultimate expression of human intention. Constructing premium residential and commercial environments across Kerala.
               </p>
               
@@ -170,7 +177,7 @@ export default function ConstructionPage() {
 
           <div className="flex flex-col gap-16 md:gap-64">
             
-            {/* PROJECT 1: Massive Panoramic Showcase */}
+            {/* PROJECT 1 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -194,10 +201,9 @@ export default function ConstructionPage() {
               </div>
             </motion.div>
 
-            {/* PROJECTS 2 & 3: The Asymmetrical Stagger */}
+            {/* PROJECTS 2 & 3 */}
             <div className="grid md:grid-cols-2 gap-16 md:gap-32 items-start">
               
-              {/* Left Side: Stays high */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -213,13 +219,12 @@ export default function ConstructionPage() {
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-audiowide text-2xl md:text-3xl uppercase tracking-tight text-[#1A1A1A]">PROJECT 1</h3>
+                    <h3 className="font-audiowide text-2xl md:text-3xl uppercase tracking-tight text-[#1A1A1A]">Skyline Pavilion</h3>
                     <span className="font-orbitron text-[9px] tracking-[0.3em] text-stone-400 uppercase mt-2 md:mt-3 block">02 / Commercial Hub</span>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Right Side: Pushed down significantly to create an editorial layout */}
               <motion.div 
                 initial={{ opacity: 0, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -235,8 +240,8 @@ export default function ConstructionPage() {
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-audiowide text-2xl md:text-3xl uppercase tracking-tight text-[#1A1A1A]">PROJECT 2</h3>
-                    <span className="font-orbitron text-[9px] tracking-[0.3em] text-stone-400 uppercase mt-2 md:mt-3 block">03 / Commercial Hub</span>
+                    <h3 className="font-audiowide text-2xl md:text-3xl uppercase tracking-tight text-[#1A1A1A]">Central Atrium</h3>
+                    <span className="font-orbitron text-[9px] tracking-[0.3em] text-stone-400 uppercase mt-2 md:mt-3 block">03 / Retail Architecture</span>
                   </div>
                 </div>
               </motion.div>
