@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to satisfy TypeScript's Easing tuple requirement
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
