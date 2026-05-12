@@ -1,11 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Link from "next/link";
+// FIX 1: Import Variants from framer-motion
+import { motion, Variants } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Globe, ShieldCheck } from "lucide-react";
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX 2: Add 'as const' so TypeScript knows this is a fixed 4-number array
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
-const containerVariants = {
+// FIX 3: Add explicit ': Variants' typing
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -13,7 +17,7 @@ const containerVariants = {
   }
 };
 
-const slideInDiagonal = {
+const slideInDiagonal: Variants = {
   hidden: { opacity: 0, x: -40, y: 20 },
   visible: { 
     opacity: 1, 
@@ -143,8 +147,8 @@ export default function ContactPage() {
                   <label htmlFor="phone" className="absolute left-0 top-3 text-zinc-400 text-sm font-orbitron uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-zinc-950 peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-[10px]">Phone Number</label>
                 </div>
                 <div className="relative">
-                  <select id="dept" className="w-full bg-transparent border-b border-zinc-200 py-3 focus:outline-none focus:border-zinc-950 transition-colors text-zinc-500 text-sm font-orbitron uppercase tracking-widest cursor-pointer">
-                    <option value="" disabled selected>Select Department</option>
+                  <select id="dept" defaultValue="" className="w-full bg-transparent border-b border-zinc-200 py-3 focus:outline-none focus:border-zinc-950 transition-colors text-zinc-500 text-sm font-orbitron uppercase tracking-widest cursor-pointer">
+                    <option value="" disabled>Select Department</option>
                     <option value="loans">BS Consultancy (Loans)</option>
                     <option value="build">BS Construction</option>
                     <option value="saloon">Glam Up Saloon</option>
