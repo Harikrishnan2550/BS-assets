@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* Custom Font Utilities */
+.font-audiowide {
+  font-family: var(--font-audiowide), sans-serif;
+}
+
+.font-emilys {
+  font-family: var(--font-emilys), cursive;
+}
+
+.font-orbitron {
+  font-family: var(--font-orbitron), sans-serif;
+}
