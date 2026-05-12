@@ -28,9 +28,31 @@ const orbitron = Orbitron({
   variable: "--font-orbitron"
 });
 
+// --- ADVANCED GLOBAL SEO METADATA ---
 export const metadata: Metadata = {
-  title: "BS Asset Solutions",
-  description: "Managing Assets, Enhancing Lives, Building Futures.",
+  title: {
+    default: "BS Asset Solutions | Managing Assets, Building Futures",
+    template: "%s | BS Asset Solutions" // This automatically appends to individual page titles
+  },
+  description: "A diversified corporate group based in Kerala, committed to excellence across financial consultancy, aesthetic wellness, structural engineering, and philanthropy.",
+  keywords: [
+    "BS Asset Solutions", 
+    "Kerala Corporate Group", 
+    "BS Consultancy", 
+    "Glam Up Saloon", 
+    "BS Construction", 
+    "BS Charity",
+    "Kollam Business",
+    "Kundara"
+  ],
+  openGraph: {
+    title: "BS Asset Solutions",
+    description: "Managing Assets, Enhancing Lives, Building Futures.",
+    url: "https://bsassetsolutions.com", // Remember to update this to your live domain later
+    siteName: "BS Asset Solutions",
+    locale: "en_IN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
