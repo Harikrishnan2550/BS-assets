@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+// FIX: Imported Variants from framer-motion
+import { motion, Variants } from "framer-motion";
 
-// Smooth, elegant easing
-const etherealEase = [0.22, 1, 0.36, 1];
+// FIX: Added 'as const' to satisfy TypeScript's Easing tuple requirement
+const etherealEase = [0.22, 1, 0.36, 1] as const;
 
-const containerVariants = {
+// FIX: Added ': Variants' typing
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -14,7 +16,8 @@ const containerVariants = {
   }
 };
 
-const fadeUp = {
+// FIX: Added ': Variants' typing
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: etherealEase } }
 };
