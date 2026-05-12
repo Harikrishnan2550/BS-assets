@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-const premiumEase = [0.76, 0, 0.24, 1];
+// FIX: Added 'as const' to satisfy Framer Motion's Easing tuple requirement
+const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 // Staggered Animation Variants
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -14,9 +15,16 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: premiumEase } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 1.2, 
+      ease: premiumEase 
+    } 
+  }
 };
 
 const LOAN_SERVICES = [
@@ -84,7 +92,6 @@ export default function ConsultancyPage() {
               <motion.div initial={{ width: 0 }} animate={{ width: 48 }} transition={{ duration: 1.5, ease: premiumEase }} className="h-[1px] bg-zinc-300" />
             </motion.div>
             
-            {/* SHORTENED HEADING */}
             <motion.h1 variants={itemVariants} className="font-audiowide text-5xl md:text-8xl lg:text-[9rem] tracking-tighter leading-[0.85] mb-8 uppercase">
               Financial <br />
               <span className="text-zinc-400 italic font-light">Future.</span>
@@ -111,7 +118,7 @@ export default function ConsultancyPage() {
         </div>
       </section>
 
-      {/* 2. Trust Banner (Institutional Metrics) */}
+      {/* 2. Trust Banner */}
       <section className="py-20 px-6 md:px-12 bg-zinc-950 text-white text-center relative overflow-hidden">
         <motion.div 
           animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
@@ -170,7 +177,7 @@ export default function ConsultancyPage() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           className="grid md:grid-cols-2 gap-6 md:gap-8"
         >
           {LOAN_SERVICES.map((service) => (
@@ -213,7 +220,7 @@ export default function ConsultancyPage() {
         </motion.div>
       </section>
 
-      {/* 4. Staggered Floating Gallery for Partners */}
+      {/* 4. Partner Gallery */}
       <section className="relative py-24 md:py-40 px-6 md:px-12 bg-[#FAFAFA] border-t border-zinc-200 overflow-hidden">
         <div className="absolute inset-0 bg-white opacity-50" style={{ backgroundImage: 'linear-gradient(#f4f4f5 1px, transparent 1px), linear-gradient(90deg, #f4f4f5 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
         
@@ -234,7 +241,7 @@ export default function ConsultancyPage() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 pb-16"
           >
             {BANKING_PARTNERS.map((bank, index) => {
@@ -263,7 +270,6 @@ export default function ConsultancyPage() {
           </motion.div>
         </div>
       </section>
-
     </main>
   );
 }
