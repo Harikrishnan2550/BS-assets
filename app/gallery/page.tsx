@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const premiumEase = [0.25, 1, 0.5, 1];
+// FIX: Added 'as const' to resolve the TypeScript Easing build error
+const premiumEase = [0.25, 1, 0.5, 1] as const;
 
 const CATEGORIES = ["All", "Construction", "Glam Up", "Consultancy"];
 
