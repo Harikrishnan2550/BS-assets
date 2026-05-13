@@ -52,7 +52,8 @@ export default function ImpactPage() {
     <main className="min-h-screen bg-[#FCFCFD] text-zinc-600 font-light selection:bg-zinc-200 selection:text-zinc-950 overflow-hidden">
       
       {/* 1. Ambient Light Hero (CENTERED) */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-20 border-b border-zinc-100">
+      {/* Reduced mobile min-height to 60vh and adjusted top padding */}
+      <section className="relative min-h-[60vh] md:min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-32 md:pt-20 pb-16 md:pb-0 border-b border-zinc-100">
         
         {/* Soft Ethereal Glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -75,7 +76,8 @@ export default function ImpactPage() {
           animate="visible"
           className="max-w-[1400px] mx-auto w-full relative z-10 flex flex-col items-center text-center"
         >
-          <motion.div variants={fadeUp} className="flex items-center justify-center gap-6 mb-12">
+          {/* Reduced bottom margin for mobile */}
+          <motion.div variants={fadeUp} className="flex items-center justify-center gap-6 mb-8 md:mb-12">
             <div className="flex gap-2">
               <span className="w-1.5 h-1.5 bg-zinc-400 rounded-full animate-pulse" />
               <span className="w-1.5 h-1.5 bg-zinc-300 rounded-full" />
@@ -85,7 +87,8 @@ export default function ImpactPage() {
             </span>
           </motion.div>
 
-          <motion.h1 variants={fadeUp} className="font-audiowide text-5xl md:text-7xl lg:text-[8.5rem] text-zinc-950 uppercase tracking-tighter leading-[0.9] mb-10 text-center">
+          {/* Reduced bottom margin for mobile */}
+          <motion.h1 variants={fadeUp} className="font-audiowide text-5xl md:text-7xl lg:text-[8.5rem] text-zinc-950 uppercase tracking-tighter leading-[0.9] mb-6 md:mb-10 text-center">
             Silent <br />
             <span className="text-zinc-400 italic">Impact.</span>
           </motion.h1>
@@ -97,7 +100,8 @@ export default function ImpactPage() {
       </section>
 
       {/* 2. Floating Ethereal Cards */}
-      <section className="py-32 md:py-48 px-6 md:px-12 relative z-20">
+      {/* Changed py-32 to py-20 for mobile */}
+      <section className="py-20 md:py-48 px-6 md:px-12 relative z-20">
         <div className="max-w-[1400px] mx-auto">
           
           <motion.div 
@@ -105,7 +109,7 @@ export default function ImpactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: etherealEase }}
-            className="mb-20 flex justify-center"
+            className="mb-12 md:mb-20 flex justify-center"
           >
             <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tighter text-zinc-950 text-center">The Mandate</h2>
           </motion.div>
@@ -123,23 +127,23 @@ export default function ImpactPage() {
                 variants={fadeUp}
                 whileHover={{ y: -15, scale: 1.01 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="group relative p-10 md:p-14 rounded-[2.5rem] bg-white border border-zinc-100 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] transition-all duration-700 overflow-hidden flex flex-col justify-between min-h-[420px] cursor-default"
+                className="group relative p-8 md:p-14 rounded-[2.5rem] bg-white border border-zinc-100 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] transition-all duration-700 overflow-hidden flex flex-col justify-between min-h-[380px] md:min-h-[420px] cursor-default"
               >
                 {/* Giant watermark number for visual texture */}
-                <div className="absolute -bottom-10 -right-10 text-[14rem] font-audiowide text-zinc-50 group-hover:text-zinc-100 transition-colors duration-700 pointer-events-none select-none">
+                <div className="absolute -bottom-10 -right-10 text-[10rem] md:text-[14rem] font-audiowide text-zinc-50 group-hover:text-zinc-100 transition-colors duration-700 pointer-events-none select-none">
                   {item.id}
                 </div>
 
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-full border border-zinc-200 flex items-center justify-center mb-10 group-hover:bg-zinc-950 group-hover:border-zinc-950 transition-colors duration-700">
-                    <span className="font-orbitron text-xs text-zinc-400 group-hover:text-white transition-colors duration-700">{item.id}</span>
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-zinc-200 flex items-center justify-center mb-8 md:mb-10 group-hover:bg-zinc-950 group-hover:border-zinc-950 transition-colors duration-700">
+                    <span className="font-orbitron text-[10px] md:text-xs text-zinc-400 group-hover:text-white transition-colors duration-700">{item.id}</span>
                   </div>
-                  <h3 className="font-audiowide text-3xl text-zinc-950 uppercase tracking-tight mb-6">
+                  <h3 className="font-audiowide text-2xl md:text-3xl text-zinc-950 uppercase tracking-tight mb-4 md:mb-6">
                     {item.title}
                   </h3>
                 </div>
 
-                <p className="relative z-10 text-zinc-500 text-lg leading-relaxed group-hover:text-zinc-700 transition-colors duration-700">
+                <p className="relative z-10 text-zinc-500 text-base md:text-lg leading-relaxed group-hover:text-zinc-700 transition-colors duration-700">
                   {item.desc}
                 </p>
               </motion.div>
@@ -150,7 +154,8 @@ export default function ImpactPage() {
       </section>
 
       {/* 3. Clean Metrics Grid */}
-      <section className="py-24 px-6 md:px-12 bg-white border-y border-zinc-100 relative">
+      {/* Changed py-24 to py-16 for mobile */}
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-white border-y border-zinc-100 relative">
         <div className="max-w-[1400px] mx-auto">
           <motion.div 
             variants={containerVariants}
@@ -163,10 +168,10 @@ export default function ImpactPage() {
               <motion.div 
                 key={i}
                 variants={fadeUp}
-                className="bg-white p-12 hover:bg-zinc-50 transition-colors duration-500 group"
+                className="bg-white p-8 md:p-12 hover:bg-zinc-50 transition-colors duration-500 group"
               >
-                <h4 className="font-audiowide text-4xl text-zinc-950 mb-3 group-hover:translate-x-2 transition-transform duration-500">{val.title}</h4>
-                <h5 className="font-orbitron text-[10px] tracking-[0.3em] text-zinc-400 uppercase mb-6 group-hover:translate-x-2 transition-transform duration-500 delay-75">{val.subtitle}</h5>
+                <h4 className="font-audiowide text-3xl md:text-4xl text-zinc-950 mb-2 md:mb-3 group-hover:translate-x-2 transition-transform duration-500">{val.title}</h4>
+                <h5 className="font-orbitron text-[9px] md:text-[10px] tracking-[0.3em] text-zinc-400 uppercase mb-4 md:mb-6 group-hover:translate-x-2 transition-transform duration-500 delay-75">{val.subtitle}</h5>
                 <p className="text-zinc-500 font-light leading-relaxed text-sm">
                   {val.desc}
                 </p>
@@ -177,7 +182,8 @@ export default function ImpactPage() {
       </section>
 
       {/* 4. Elegant Footer CTA */}
-      <section className="py-32 md:py-48 px-6 text-center relative overflow-hidden bg-[#FCFCFD]">
+      {/* Changed py-32 to py-20 for mobile */}
+      <section className="py-20 md:py-48 px-6 text-center relative overflow-hidden bg-[#FCFCFD]">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -185,21 +191,21 @@ export default function ImpactPage() {
           transition={{ duration: 1.2, ease: etherealEase }}
           className="max-w-2xl mx-auto flex flex-col items-center relative z-10"
         >
-          <div className="w-px h-16 bg-gradient-to-b from-transparent to-zinc-300 mb-12" />
+          <div className="w-px h-12 md:h-16 bg-gradient-to-b from-transparent to-zinc-300 mb-8 md:mb-12" />
           
-          <h2 className="font-audiowide text-4xl md:text-6xl text-zinc-950 uppercase tracking-tighter mb-8 leading-tight">
+          <h2 className="font-audiowide text-3xl md:text-6xl text-zinc-950 uppercase tracking-tighter mb-6 md:mb-8 leading-tight">
             Quiet <br /> Contribution.
           </h2>
           
-          <p className="text-zinc-500 text-lg md:text-xl mb-12 font-light leading-relaxed">
+          <p className="text-zinc-500 text-base md:text-xl mb-8 md:mb-12 font-light leading-relaxed">
             If you wish to fund our initiatives or know someone who desperately requires our assistance, please reach out. All communications remain strictly confidential.
           </p>
           
           <Link 
             href="/contact" 
-            className="group relative inline-flex items-center justify-center gap-6 bg-transparent border border-zinc-200 text-zinc-950 px-10 py-5 rounded-full overflow-hidden transition-all duration-500 hover:border-zinc-950 shadow-sm hover:shadow-xl"
+            className="group relative inline-flex items-center justify-center gap-6 bg-transparent border border-zinc-200 text-zinc-950 px-8 py-4 md:px-10 md:py-5 rounded-full overflow-hidden transition-all duration-500 hover:border-zinc-950 shadow-sm hover:shadow-xl"
           >
-             <span className="relative z-10 font-orbitron text-[10px] uppercase tracking-widest font-medium group-hover:text-white transition-colors duration-500">
+             <span className="relative z-10 font-orbitron text-[9px] md:text-[10px] uppercase tracking-widest font-medium group-hover:text-white transition-colors duration-500">
                Contact Confidentially
              </span>
              <div className="absolute inset-0 bg-zinc-950 scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500 ease-[0.22,1,0.36,1]" />
