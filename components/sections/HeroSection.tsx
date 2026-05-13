@@ -47,9 +47,9 @@ export default function HeroSection() {
       
       {/* Editorial Header 
           MOBILE: Stays exactly as it was (Order-2, below images).
-          DESKTOP: Scaled down from 7rem to 5.5rem for a tighter, more 'normal' feel.
+          DESKTOP: Uses a centered max-width container to perfectly align with Navbar/Footer constraints.
       */}
-      <div className="order-2 md:order-none relative md:absolute md:top-[22%] left-0 md:left-12 z-20 pt-6 md:pt-0 px-6 md:p-0 pointer-events-none mix-blend-normal md:mix-blend-difference shrink-0 pb-10 md:pb-0">
+      <div className="order-2 md:order-none relative md:absolute md:top-[22%] md:left-1/2 md:-translate-x-1/2 w-full max-w-[1400px] z-20 pt-6 md:pt-0 px-6 md:px-12 pointer-events-none mix-blend-normal md:mix-blend-difference shrink-0 pb-10 md:pb-0">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
