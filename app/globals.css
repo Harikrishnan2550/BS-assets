@@ -1,14 +1,22 @@
+/* 1. Import all your fonts from Google Fonts (Updated to include Kdam Thmor Pro) */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Emilys+Candy&family=Kdam+Thmor+Pro&family=Orbitron:wght@400..900&display=swap');
+
+/* 2. Load Tailwind CSS (v4) */
 @import "tailwindcss";
 
-/* Custom Font Utilities */
-.font-audiowide {
-  font-family: var(--font-audiowide), sans-serif;
+/* 3. Apply Kdam Thmor Pro as the default global font */
+body {
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.font-emilys {
-  font-family: var(--font-emilys), cursive;
-}
-
+/* 4. Force ALL your existing custom font classes to use Kdam Thmor Pro instantly */
+.kdam-thmor-pro-regular,
+.font-audiowide,
+.font-emilys,
 .font-orbitron {
-  font-family: var(--font-orbitron), sans-serif;
+  font-family: "Kdam Thmor Pro", sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
 }

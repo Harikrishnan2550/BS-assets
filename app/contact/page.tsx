@@ -116,7 +116,7 @@ export default function ContactPage() {
               <p className="text-2xl font-light text-zinc-950 mb-2">Kerala, India</p>
               <div className="flex items-center gap-4 text-zinc-500">
                 <Phone className="w-4 h-4" />
-                <span className="font-light">+91 [Insert Official Number]</span>
+                <span className="font-light">+91 9846724677</span>
               </div>
             </motion.div>
           </motion.div>

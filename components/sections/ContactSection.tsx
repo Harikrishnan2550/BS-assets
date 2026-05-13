@@ -94,6 +94,23 @@ export default function ContactSection() {
                 </div>
               </div>
 
+              {/* Mobile Phone Field */}
+              <div className="relative group">
+                <label className={`font-orbitron text-[10px] tracking-[0.3em] uppercase transition-all duration-500 ${focusedField === 'phone' ? 'text-white' : 'text-zinc-400'}`}>
+                  Mobile Number
+                </label>
+                <div className="relative mt-2">
+                  <input 
+                    onFocus={() => setFocusedField('phone')}
+                    onBlur={() => setFocusedField(null)}
+                    type="tel" 
+                    className="w-full bg-zinc-900/50 border border-zinc-800 text-white p-5 rounded-2xl focus:outline-none focus:border-white transition-all font-light text-lg placeholder:text-zinc-500" 
+                    placeholder="+91 98765 43210"
+                  />
+                  {focusedField === 'phone' && <motion.div layoutId="glow" className="absolute -inset-[1px] rounded-2xl border border-white/50 blur-[2px] pointer-events-none" />}
+                </div>
+              </div>
+
               {/* Message Field */}
               <div className="relative group">
                 <label className={`font-orbitron text-[10px] tracking-[0.3em] uppercase transition-all duration-500 ${focusedField === 'message' ? 'text-white' : 'text-zinc-400'}`}>
@@ -132,10 +149,10 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: premiumEase }}
-            className="flex flex-col gap-8"
+            className="flex flex-col gap-6"
           >
             {/* Google Map Embed centered on Kundara, Kollam */}
-            <div className="w-full h-full min-h-[400px] rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 border border-zinc-100 shadow-lg relative">
+            <div className="w-full h-full min-h-[350px] rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 border border-zinc-100 shadow-lg relative">
                {/* Map Loading Skeleton / Overlay to prevent harsh map load pop-in */}
                <div className="absolute inset-0 bg-zinc-100 -z-10" />
                <iframe 
@@ -150,6 +167,7 @@ export default function ContactSection() {
               />
             </div>
 
+            {/* Headquarters Location Block */}
             <div className="bg-zinc-50 p-8 rounded-[2rem] flex justify-between items-center border border-zinc-100">
                <div>
                   <p className="font-orbitron text-[9px] tracking-widest text-zinc-400 uppercase mb-2">Headquarters</p>
@@ -163,6 +181,23 @@ export default function ContactSection() {
                   </div>
                </div>
             </div>
+
+            {/* Mobile Phone Direct Contact Block */}
+            <div className="bg-zinc-50 p-8 rounded-[2rem] flex justify-between items-center border border-zinc-100">
+               <div>
+                  <p className="font-orbitron text-[9px] tracking-widest text-zinc-400 uppercase mb-2">Direct Transmission</p>
+                  {/* Replace with your actual phone number */}
+                  <a href="tel:+919876543210" className="font-audiowide text-xl hover:text-zinc-600 transition-colors">
+                    +91 9846724677
+                  </a>
+               </div>
+               <div className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-400 bg-white shadow-sm">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+               </div>
+            </div>
+
           </motion.div>
         </div>
       </div>

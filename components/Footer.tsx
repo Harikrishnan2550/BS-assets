@@ -110,26 +110,36 @@ export default function Footer() {
 
         </div>
 
-        {/* Technical Bottom Footer */}
-        <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 w-full md:w-auto text-center md:text-left">
+        {/* Technical Bottom Footer (Centered Alignment) */}
+        <div className="pt-8 border-t border-zinc-900 flex flex-col items-center justify-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center">
              <span className="font-orbitron text-[8px] tracking-[0.4em] uppercase text-zinc-500">
                © {currentYear} BS Asset Solutions // All Rights Reserved
              </span>
+             
+             {/* Divider for desktop */}
              <div className="hidden md:block w-1 h-1 bg-zinc-800 rounded-full" />
+             
+             {/* Developed By Link */}
+             <span className="font-orbitron text-[8px] tracking-[0.4em] uppercase text-zinc-500">
+               Engineered by{" "}
+               <a 
+                 href="https://winshineinfotech.com/" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 className="text-zinc-300 hover:text-white transition-colors border-b border-zinc-800 hover:border-white pb-0.5 ml-1"
+               >
+                 Winshine Infotech
+               </a>
+             </span>
+
+             {/* Divider for desktop */}
+             <div className="hidden md:block w-1 h-1 bg-zinc-800 rounded-full" />
+             
              <div className="flex gap-6 font-orbitron text-[8px] tracking-[0.4em] uppercase">
-                <Link href="#" className="text-zinc-600 hover:text-zinc-300 transition-colors">Privacy_Policy</Link>
-                <Link href="#" className="text-zinc-600 hover:text-zinc-300 transition-colors">Terms_of_Service</Link>
+                <Link href="#" className="text-zinc-600 hover:text-zinc-300 transition-colors">Privacy</Link>
+                <Link href="#" className="text-zinc-600 hover:text-zinc-300 transition-colors">Terms</Link>
              </div>
-          </div>
-          
-          <div className="flex items-center gap-4 font-orbitron text-[8px] tracking-[0.4em] uppercase text-zinc-600">
-            <span>System Status: Optimal</span>
-            <div className="flex gap-1">
-               <span className="w-1.5 h-3 bg-zinc-700" />
-               <span className="w-1.5 h-3 bg-zinc-700" />
-               <span className="w-1.5 h-3 bg-white animate-pulse" />
-            </div>
           </div>
         </div>
 

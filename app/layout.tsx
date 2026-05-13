@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
+import WhatsAppButton from "@/components/WhatsAppButton"; // <-- Imported the new button
 
 // 1. Configure standard font
 const inter = Inter({ subsets: ["latin"] });
@@ -70,6 +71,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <WhatsAppButton /> {/* <-- Added the WhatsApp Button here */}
       </body>
     </html>
   );
