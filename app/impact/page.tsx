@@ -212,7 +212,6 @@ export default function ImpactPage() {
           </Link>
         </motion.div>
       </section>
-
     </main>
   );
 }

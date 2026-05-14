@@ -179,7 +179,66 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Vision & Mission */}
+      {/* 3. NEW: PHILANTHROPY & DIRECT IMPACT */}
+      <section className="py-24 md:py-40 px-6 md:px-12 bg-white border-b border-zinc-100 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
+            
+            {/* Left: Philanthropy Text */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: premiumEase }}
+              className="order-2 lg:order-1"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <span className="w-12 h-[1px] bg-zinc-300" />
+                <span className="font-orbitron text-[10px] tracking-[0.4em] text-zinc-500 uppercase">Community First</span>
+              </div>
+              
+              <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tight mb-8 text-zinc-900">
+                Philanthropy <br />
+                <span className="text-zinc-400 italic">In Action.</span>
+              </h2>
+              
+              <div className="space-y-6 text-zinc-500 font-light text-lg leading-relaxed">
+                <p>
+                  For Dr. Biju K., leadership is not confined to the office. It is defined by the tangible, on-the-ground difference made in the lives of those facing life's toughest chapters.
+                </p>
+                <p>
+                  Through dedicated, hands-on charitable initiatives, he personally spearheads efforts to provide essential resources to vulnerable families. This includes funding and executing <strong className="text-zinc-900 font-medium">home renovations</strong> for those in unsafe living conditions, ensuring regular <strong className="text-zinc-900 font-medium">food distribution</strong> to eradicate hunger, and providing <strong className="text-zinc-900 font-medium">clothing and daily necessities</strong> to those who need it most.
+                </p>
+                <p>
+                  It is a quiet, steadfast commitment to giving back to the communities that support us.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Right: New Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.5, ease: premiumEase }}
+              className="order-1 lg:order-2 relative"
+            >
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-[2.5rem] bg-zinc-100 border border-zinc-200 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] relative">
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  src="/boss2.jpeg"
+                  alt="Dr. Biju K. in office"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Vision & Mission */}
       <section className="py-24 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
         <motion.div 
           variants={containerVariants}
@@ -212,7 +271,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* 4. Core Values */}
+      {/* 5. Core Values */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-white border-t border-zinc-100">
         <div className="max-w-[1400px] mx-auto">
           <motion.div 
@@ -250,7 +309,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. Institutional CTA */}
+      {/* 6. Institutional CTA */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-zinc-50 text-center border-t border-zinc-200">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}

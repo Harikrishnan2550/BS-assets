@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-// FIX: Imported Variants from framer-motion
 import { motion, Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-// FIX: Added 'as const' to satisfy TypeScript's Easing tuple requirement
 const premiumEase = [0.76, 0, 0.24, 1] as const;
 
-// FIX: Added ': Variants' typing
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -16,7 +14,6 @@ const containerVariants: Variants = {
   }
 };
 
-// FIX: Added ': Variants' typing
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
@@ -44,6 +41,54 @@ const STUDIOS = [
 ];
 
 export default function GlamUpPage() {
+  // Logic for playing video on scroll and handling sound
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Play video when it enters the screen
+            if (videoRef.current) {
+              videoRef.current.play().catch((error) => {
+                // If the browser blocks unmuted autoplay, mute it and play anyway
+                console.log("Autoplay with sound blocked by browser, falling back to muted autoplay.");
+                if (videoRef.current) {
+                  videoRef.current.muted = true;
+                  setIsMuted(true);
+                  videoRef.current.play();
+                }
+              });
+            }
+          } else {
+            // Pause video when it leaves the screen to save performance
+            if (videoRef.current) {
+              videoRef.current.pause();
+            }
+          }
+        });
+      },
+      { threshold: 0.5 } // Triggers when 50% of the video is visible
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) observer.unobserve(videoRef.current);
+    };
+  }, []);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#FAFAFA] text-zinc-950 selection:bg-zinc-950 selection:text-white">
       
@@ -79,16 +124,68 @@ export default function GlamUpPage() {
               style={{ backgroundImage: "url('/glam-up.png')" }} 
             />
             <div className="absolute inset-0 bg-zinc-950/20" />
-            
-            {/* CTA Button Overlaid on Image */}
           </motion.div>
-
-          {/* Floating Development Teaser */}
-          
         </motion.div>
       </section>
 
-      {/* 2. Sticky Editorial Menu */}
+      {/* 2. Cinematic Brand Film Section */}
+      <section className="py-24 px-6 md:px-12 flex flex-col items-center">
+        <div className="w-full max-w-[1200px] mx-auto flex flex-col items-center">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: premiumEase }}
+            className="text-center mb-12 md:mb-16"
+          >
+            <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-400 uppercase mb-4 block">The Experience</span>
+            <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tight text-zinc-900">Cinematic Tour</h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 40 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: premiumEase }}
+            className="w-full aspect-video bg-zinc-900 rounded-[2rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] relative border border-zinc-200/50 group"
+          >
+            <video 
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              loop 
+              playsInline
+              poster="/video-thumbnail.jpg" 
+              // We DO NOT use autoPlay here, our useEffect script controls it on scroll!
+            >
+              <source src="/glam-up-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {/* Premium Custom Mute/Unmute Toggle Button */}
+            <button 
+              onClick={toggleMute}
+              className="absolute bottom-6 right-6 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-zinc-950/60 backdrop-blur-md border border-white/20 text-white hover:bg-zinc-900 hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100"
+            >
+              {isMuted ? (
+                // Muted Icon
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                </svg>
+              ) : (
+                // Sound Icon
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+              )}
+            </button>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* 3. Sticky Editorial Menu */}
       <section className="py-24 md:py-40 px-6 md:px-12 border-t border-zinc-200">
         <div className="max-w-[1400px] mx-auto relative">
           <div className="grid md:grid-cols-12 gap-16 md:gap-8 items-start">
@@ -132,7 +229,7 @@ export default function GlamUpPage() {
         </div>
       </section>
 
-      {/* 3. Cinematic Zig-Zag Studios */}
+      {/* 4. Cinematic Zig-Zag Studios */}
       <section className="py-24 md:py-40 bg-zinc-950 text-white rounded-t-[4rem]">
         <div className="max-w-[1500px] mx-auto px-6 md:px-12">
           
@@ -143,7 +240,6 @@ export default function GlamUpPage() {
 
           <div className="flex flex-col gap-32 md:gap-48">
             {STUDIOS.map((studio, index) => {
-              // Alternate layout based on even/odd index
               const isEven = index % 2 === 0;
 
               return (

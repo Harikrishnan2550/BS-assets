@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
-// FIX: Added 'as const' to satisfy Framer Motion's Easing tuple requirement
 const premiumEase = [0.76, 0, 0.24, 1] as const;
 
-// Staggered Animation Variants
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -63,6 +61,18 @@ const BANKING_PARTNERS = [
   { name: "ESAF Small Finance", img: "/esaf-small-finance-bank-logo-1.png" },
   { name: "Chola", img: "/Chola-Logo.png" },
   { name: "Punjab National Bank", img: "/pnb.png" }
+];
+
+const OFFICE_GALLERY = [
+  { img: "/office-exterior.png", title: "Office Exterior", desc: "Hospital Jn., Kundara" },
+  { img: "/office-interior-1.png", title: "Office interior", desc: "Premium Consultation Area" },
+  { img: "/office-interior-2.png", title: "Office Workspace", desc: "Secure Processing Zone" }
+];
+
+const CERTIFICATIONS = [
+  { img: "/icici-cert.png", partner: "ICICI Home Finance", title: "Valued Partner" },
+  { img: "/repco-cert.png", partner: "Repco Home Finance", title: "Approved DSA" },
+  { img: "/pnb-cert.png", partner: "PNB Housing", title: "Authorised Business Partner" }
 ];
 
 export default function ConsultancyPage() {
@@ -270,6 +280,94 @@ export default function ConsultancyPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* 5. Infrastructure & Credentials Gallery */}
+      <section className="relative py-24 md:py-40 px-6 md:px-12 bg-zinc-950 text-white overflow-hidden">
+        
+        {/* Subtle Dark Background Pattern */}
+        <motion.div 
+          animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
+          transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+          className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+          style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} 
+        />
+
+        <div className="max-w-[1400px] mx-auto relative z-10">
+          
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: premiumEase }}
+            className="mb-20 flex flex-col items-center text-center"
+          >
+            <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-500 uppercase mb-4 block">Infrastructure & Trust</span>
+            <h2 className="font-audiowide text-4xl md:text-6xl uppercase tracking-tight text-white">Our Presence</h2>
+            <p className="text-zinc-400 font-light max-w-lg mt-6">Authorized by leading financial bodies, operating from our dedicated headquarters in Kundara.</p>
+          </motion.div>
+
+          {/* Grid Layout */}
+          <div className="flex flex-col gap-12 md:gap-24">
+            
+            {/* ROW 1: Office Locations */}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start"
+            >
+              {OFFICE_GALLERY.map((office, idx) => (
+                <motion.div key={idx} variants={itemVariants} className="group flex flex-col gap-4">
+                  <div className="w-full rounded-[2.5rem] bg-zinc-900 border border-zinc-800 shadow-xl relative p-4 md:p-0 md:aspect-square overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full h-full rounded-2xl md:rounded-none overflow-hidden flex items-center justify-center">
+                      <img 
+                        src={office.img} 
+                        alt={office.title} 
+                        className="w-full h-auto md:h-full object-contain md:object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100 relative z-10"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20 pointer-events-none" />
+                    </div>
+                  </div>
+                  <div className="px-2 text-center md:text-left">
+                    <h4 className="font-audiowide text-xl text-white mb-1 tracking-wide">{office.title}</h4>
+                    <p className="font-orbitron text-[9px] uppercase tracking-widest text-zinc-500">{office.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* ROW 2: Certificates */}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start md:items-stretch"
+            >
+              {CERTIFICATIONS.map((cert, idx) => (
+                <motion.div key={idx} variants={itemVariants} className="group flex flex-col gap-4">
+                  <div className="w-full rounded-[2.5rem] bg-zinc-900 border border-zinc-800 shadow-xl relative p-4 md:p-8 md:aspect-[3/4] overflow-hidden flex items-center justify-center">
+                     <div className="absolute inset-0 bg-yellow-500/0 group-hover:bg-yellow-500/10 transition-colors duration-700 z-20 pointer-events-none" />
+                     <img 
+                      src={cert.img} 
+                      alt={cert.title} 
+                      className="w-full h-auto md:h-full object-contain transition-transform duration-1000 group-hover:scale-105 relative z-10"
+                    />
+                  </div>
+                  <div className="px-2 text-center">
+                    <p className="font-orbitron text-[9px] uppercase tracking-widest text-zinc-500 mb-2">{cert.partner}</p>
+                    <h4 className="font-audiowide text-lg text-white tracking-wide">{cert.title}</h4>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }

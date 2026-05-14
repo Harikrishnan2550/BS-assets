@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-// FIX: Added 'as const' to satisfy TypeScript for build
 const luxuryEase = [0.25, 1, 0.5, 1] as const;
 
 const containerVariants: Variants = {
@@ -34,13 +34,56 @@ const CAPABILITIES = [
 ];
 
 export default function ConstructionPage() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (videoRef.current) {
+              videoRef.current.play().catch((error) => {
+                console.log("Autoplay blocked, ensuring muted state.", error);
+                if (videoRef.current) {
+                  videoRef.current.muted = true;
+                  setIsMuted(true);
+                  videoRef.current.play();
+                }
+              });
+            }
+          } else {
+            if (videoRef.current) {
+              videoRef.current.pause();
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) observer.unobserve(videoRef.current);
+    };
+  }, []);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] selection:bg-[#1A1A1A] selection:text-[#FAF9F6] font-light">
+    <main className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] selection:bg-[#1A1A1A] selection:text-[#FAF9F6] font-light overflow-hidden">
       
       {/* 1. Immersive Zen Hero */}
       <section className="relative flex flex-col justify-end px-6 pt-32 pb-0 md:min-h-[95vh] md:p-12 overflow-hidden">
         
-        {/* Background Image & Smart Overlays */}
         <motion.div 
           initial={{ scale: 1.05 }}
           animate={{ scale: 1 }}
@@ -52,22 +95,13 @@ export default function ConstructionPage() {
             style={{ backgroundImage: "url('/house1.jpeg')" }} 
           />
           
-          {/* OVERLAYS FOR TEXT READABILITY */}
-          {/* 1. Base wash & subtle blur to soften the busy image globally */}
           <div className="absolute inset-0 bg-[#FAF9F6]/30 backdrop-blur-[2px]" />
-          
-          {/* 2. Desktop: Gradient from left to right (protects text on the left side) */}
           <div className="hidden md:block absolute inset-0 w-3/4 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent" />
-          
-          {/* 3. Mobile: Stronger gradient from bottom to top (protects text at the bottom) */}
           <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6] to-[#FAF9F6]/20" />
-          
-          {/* 4. Universal bottom fade to seamlessly blend the image into the next section */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent" />
         </motion.div>
 
         <div className="relative z-10 w-full max-w-[1600px] mx-auto pb-4 md:pb-12">
-          
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -109,7 +143,7 @@ export default function ConstructionPage() {
       </section>
 
       {/* 2. Airy Capabilities Grid */}
-      <section className="pt-4 pb-16 md:py-48 px-6 md:px-12 bg-[#FAF9F6]">
+      <section className="pt-4 pb-16 md:py-32 px-6 md:px-12 bg-[#FAF9F6]">
         <div className="max-w-[1600px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
           
           <div className="lg:col-span-4 lg:sticky lg:top-40 h-max">
@@ -159,11 +193,77 @@ export default function ConstructionPage() {
         </div>
       </section>
 
-      {/* 3. ULTRA-PREMIUM EDITORIAL GALLERY */}
-      <section className="py-16 md:py-40 bg-white">
+      {/* 3. Architectural Vertical Walkthrough Video */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-white border-y border-stone-200">
+        {/* FIX: max-w-[1600px] ensures it aligns perfectly with the navbar edges */}
+        <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+          
+          {/* Text Content: Hugs the left side */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: luxuryEase }}
+            className="w-full md:w-[55%] text-center md:text-left"
+          >
+            <span className="font-orbitron text-[10px] tracking-[0.4em] text-stone-400 uppercase mb-4 md:mb-6 block">Inside The Build</span>
+            <h2 className="font-audiowide text-4xl md:text-6xl lg:text-7xl uppercase tracking-tighter text-[#1A1A1A] mb-8">
+              Living <br className="hidden md:block" /> Masterpiece.
+            </h2>
+            {/* Increased max-w to 2xl so the text naturally fills the large space */}
+            <p className="text-stone-500 font-light text-lg md:text-xl leading-relaxed max-w-2xl mx-auto md:mx-0">
+              Witness the culmination of structural integrity and bespoke interior design. Take an exclusive guided walkthrough of a recently completed client residence, showcasing our obsessive attention to detail.
+            </p>
+          </motion.div>
+
+          {/* Vertical Video Player: Hugs the right side */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.5, ease: luxuryEase }}
+            /* md:justify-end pushes the video to the absolute right edge */
+            className="w-full md:w-[45%] flex justify-center md:justify-end"
+          >
+            {/* Slightly increased max-w to 420px for desktop to close the gap naturally */}
+            <div className="w-full max-w-[380px] lg:max-w-[420px] aspect-[9/16] bg-stone-900 rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] relative border border-stone-200 group">
+              <video 
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                loop 
+                playsInline
+                muted={isMuted} 
+                poster="/video-thumbnail.jpg" 
+              >
+                <source src="/construction-video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <button 
+                onClick={toggleMute}
+                className="absolute bottom-6 right-6 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-zinc-950/60 backdrop-blur-md border border-white/30 text-white hover:bg-zinc-900 hover:scale-110 transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+              >
+                {isMuted ? (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* 4. ULTRA-PREMIUM EDITORIAL GALLERY */}
+      <section className="py-24 md:py-40 bg-[#FAF9F6]">
         <div className="max-w-[1800px] mx-auto px-6 md:px-12">
           
-          {/* Section Header */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -271,8 +371,8 @@ export default function ConstructionPage() {
         </div>
       </section>
 
-      {/* 4. Elegant Footer CTA */}
-      <section className="py-20 md:py-48 px-6 text-center bg-[#FAF9F6]">
+      {/* 5. Elegant Footer CTA */}
+      <section className="py-20 md:py-48 px-6 text-center bg-white border-t border-stone-200">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
