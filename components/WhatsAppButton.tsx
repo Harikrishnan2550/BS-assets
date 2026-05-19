@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function WhatsAppButton() {
   // TODO: Replace with your actual WhatsApp number (include country code, exclude '+' or '00')
   // Example: "919876543210" for India
-  const phoneNumber = "919846724677"; 
+  const phoneNumber = "+919846724677"; 
   
   // The default message that will populate in the user's chat box
   const message = encodeURIComponent("Hello BS Asset Solutions, I would like to inquire about your services.");
