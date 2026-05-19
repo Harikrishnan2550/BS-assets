@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
-// FIX: Added 'as const' to tell TypeScript this is a fixed cubic-bezier tuple
 const premiumEase = [0.76, 0, 0.24, 1] as const;
 
 const VALUES = [
@@ -13,7 +12,6 @@ const VALUES = [
   { id: "04", title: "Innovation", desc: "Adapting modern systems for seamless architectural and financial solutions." }
 ];
 
-// Staggered Animation Variants
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -24,42 +22,26 @@ const containerVariants: Variants = {
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 1, 
-      ease: premiumEase // Now correctly typed
-    } 
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: premiumEase } }
 };
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-zinc-950 overflow-hidden">
-      
-      {/* 1. Cinematic Corporate Hero */}
+
+      {/* 1. Hero */}
       <section className="relative py-32 md:py-52 px-6 md:px-12 flex flex-col items-center text-center border-b border-zinc-100">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#f4f4f5_0%,_transparent_70%)] opacity-50 pointer-events-none" />
-        
         <div className="max-w-5xl mx-auto relative z-10">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-center"
-          >
+          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-center">
             <motion.div variants={itemVariants} className="flex items-center gap-4 mb-8">
               <motion.div initial={{ width: 0 }} animate={{ width: 48 }} transition={{ duration: 1, delay: 0.5 }} className="h-[1px] bg-zinc-300" />
               <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-500 uppercase">The BS Group Narrative</span>
               <motion.div initial={{ width: 0 }} animate={{ width: 48 }} transition={{ duration: 1, delay: 0.5 }} className="h-[1px] bg-zinc-300" />
             </motion.div>
-            
             <motion.h1 variants={itemVariants} className="font-audiowide text-4xl md:text-7xl lg:text-[7rem] tracking-tighter leading-[0.85] mb-10 uppercase">
-              Excellence <br />
-              <span className="text-zinc-300 italic">Is Protocol.</span>
+              Excellence <br /><span className="text-zinc-300 italic">Is Protocol.</span>
             </motion.h1>
-            
             <motion.p variants={itemVariants} className="font-orbitron text-[10px] md:text-xs text-zinc-500 uppercase tracking-[0.2em] max-w-3xl leading-relaxed mx-auto">
               Founded on a singular vision: to bring unparalleled quality, institutional integrity, and premium service to every sector we touch in Kerala and beyond.
             </motion.p>
@@ -67,107 +49,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. FOUNDER'S VISION & ACCOLADES */}
+      {/* 2. Founder */}
       <section className="py-24 md:py-48 px-6 md:px-12 bg-zinc-950 text-white relative">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-            
-            {/* Left: Dual Image Composition */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.5, ease: premiumEase }}
-              className="lg:col-span-5 relative group mt-10 lg:mt-0"
-            >
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: premiumEase }} className="lg:col-span-5 relative group mt-10 lg:mt-0">
               <div className="aspect-[3/4] md:aspect-[4/5] w-[85%] overflow-hidden rounded-[2rem] bg-zinc-900 border border-zinc-800 relative shadow-2xl">
-                <motion.div 
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
-                  className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
-                  style={{ backgroundImage: "url('/boss.jpeg')" }} 
-                />
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 1.5, ease: "easeOut" }} className="absolute inset-0 bg-cover bg-center transition-all duration-1000" style={{ backgroundImage: "url('/boss.jpeg')" }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-80 pointer-events-none" />
-                
                 <div className="absolute bottom-10 left-8 pointer-events-none">
                   <p className="font-audiowide text-2xl uppercase">Director's</p>
                   <p className="font-orbitron text-[9px] tracking-[0.4em] text-zinc-400 uppercase mt-1">Vision & Philanthropy</p>
                 </div>
               </div>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                animate={{ y: [0, -15, 0] }} 
-                transition={{ 
-                  y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                  opacity: { duration: 1, delay: 0.5, ease: premiumEase }
-                }}
-                className="absolute -bottom-12 -right-4 md:-right-8 w-[55%] aspect-square rounded-full border-[8px] border-zinc-950 overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] z-20"
-              >
-                <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="absolute inset-0 bg-cover bg-center cursor-pointer"
-                  style={{ backgroundImage: "url('/medal.jpeg')" }} 
-                />
+              <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} animate={{ y: [0, -15, 0] }} transition={{ y: { duration: 6, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 1, delay: 0.5, ease: premiumEase } }} className="absolute -bottom-12 -right-4 md:-right-8 w-[55%] aspect-square rounded-full border-[8px] border-zinc-950 overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] z-20">
+                <motion.div whileHover={{ scale: 1.1, rotate: 5 }} transition={{ type: "spring", stiffness: 300 }} className="absolute inset-0 bg-cover bg-center cursor-pointer" style={{ backgroundImage: "url('/medal.jpeg')" }} />
               </motion.div>
-              
               <div className="absolute -top-6 left-[85%] w-16 h-16 border-t border-r border-zinc-800 pointer-events-none hidden md:block" />
               <div className="absolute top-[80%] -left-6 w-16 h-16 border-b border-l border-zinc-800 pointer-events-none hidden md:block" />
             </motion.div>
 
-            {/* Right: Founder's Philosophy */}
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="lg:col-span-7 flex flex-col justify-center"
-            >
+            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="lg:col-span-7 flex flex-col justify-center">
               <motion.div variants={itemVariants} className="flex items-center gap-4 mb-10">
                 <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
                 <span className="font-orbitron text-[9px] tracking-[0.4em] text-zinc-400 uppercase">Leadership Directive</span>
               </motion.div>
-
               <motion.h2 variants={itemVariants} className="font-audiowide text-3xl md:text-5xl uppercase leading-[1.1] mb-8">
                 "True wealth is defined by the <span className="text-zinc-500">communities we uplift.</span>"
               </motion.h2>
-
               <motion.div variants={itemVariants} className="space-y-6 font-light text-zinc-400 leading-relaxed text-lg">
-                <p>
-                  The momentum behind BS Asset Solutions is driven by a dual mandate: engineering premium commercial success while utilizing it as a formidable tool for social infrastructure.
-                </p>
-                <p>
-                  Through the <span className="text-white font-medium">BS Charity</span> division, we redirect our growth into essential community outreach across Kerala.
-                </p>
+                <p>The momentum behind BS Asset Solutions is driven by a dual mandate: engineering premium commercial success while utilizing it as a formidable tool for social infrastructure.</p>
+                <p>Through the <span className="text-white font-medium">BS Charity</span> division, we redirect our growth into essential community outreach across Kerala.</p>
               </motion.div>
-
-              {/* Honors Block */}
-              <motion.div 
-                variants={itemVariants}
-                whileHover={{ y: -5, scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="mt-10 bg-zinc-900/50 border border-zinc-800 p-6 md:p-8 rounded-3xl flex flex-col sm:flex-row items-center gap-8 shadow-2xl cursor-default"
-              >
-                  <div className="w-32 sm:w-36 shrink-0 aspect-[4/5] rounded-xl overflow-hidden border border-zinc-700 shadow-xl bg-zinc-950">
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.8 }}
-                      className="w-full h-full bg-cover bg-center"
-                      style={{ backgroundImage: "url('/rotary-award.png')" }} 
-                    />
-                  </div>
-
-                  <div className="text-center sm:text-left">
-                    <p className="font-orbitron text-[9px] tracking-[0.3em] text-amber-500 uppercase mb-3">Honors & Recognition</p>
-                    <p className="font-light text-sm md:text-base text-zinc-300 leading-relaxed">
-                      Conferred with an <strong className="text-white font-medium">Honorary Doctorate</strong>. Proudly acknowledged by the <strong className="text-white font-medium">Rotary Club of Kundara, 2026</strong>.
-                    </p>
-                  </div>
+              <motion.div variants={itemVariants} whileHover={{ y: -5, scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 20 }} className="mt-10 bg-zinc-900/50 border border-zinc-800 p-6 md:p-8 rounded-3xl flex flex-col sm:flex-row items-center gap-8 shadow-2xl cursor-default">
+                <div className="w-32 sm:w-36 shrink-0 aspect-[4/5] rounded-xl overflow-hidden border border-zinc-700 shadow-xl bg-zinc-950">
+                  <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.8 }} className="w-full h-full bg-cover bg-center" style={{ backgroundImage: "url('/rotary-award.png')" }} />
+                </div>
+                <div className="text-center sm:text-left">
+                  <p className="font-orbitron text-[9px] tracking-[0.3em] text-amber-500 uppercase mb-3">Honors & Recognition</p>
+                  <p className="font-light text-sm md:text-base text-zinc-300 leading-relaxed">
+                    Conferred with an <strong className="text-white font-medium">Honorary Doctorate</strong>. Proudly acknowledged by the <strong className="text-white font-medium">Rotary Club of Kundara, 2026</strong>.
+                  </p>
+                </div>
               </motion.div>
-
               <motion.div variants={itemVariants} className="mt-12 pt-8 border-t border-zinc-800 flex items-center gap-8">
                 <div>
                   <p className="font-audiowide text-lg text-white uppercase">DR. BIJU K.</p>
@@ -179,58 +103,107 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. NEW: PHILANTHROPY & DIRECT IMPACT */}
+      {/* 3. Philanthropy */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-white border-b border-zinc-100 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
-            
-            {/* Left: Philanthropy Text */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, ease: premiumEase }}
-              className="order-2 lg:order-1"
-            >
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: premiumEase }} className="order-2 lg:order-1">
               <div className="flex items-center gap-4 mb-6">
                 <span className="w-12 h-[1px] bg-zinc-300" />
                 <span className="font-orbitron text-[10px] tracking-[0.4em] text-zinc-500 uppercase">Community First</span>
               </div>
-              
               <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tight mb-8 text-zinc-900">
-                Philanthropy <br />
-                <span className="text-zinc-400 italic">In Action.</span>
+                Philanthropy <br /><span className="text-zinc-400 italic">In Action.</span>
               </h2>
-              
               <div className="space-y-6 text-zinc-500 font-light text-lg leading-relaxed">
-                <p>
-                  For Dr. Biju K., leadership is not confined to the office. It is defined by the tangible, on-the-ground difference made in the lives of those facing life's toughest chapters.
-                </p>
-                <p>
-                  Through dedicated, hands-on charitable initiatives, he personally spearheads efforts to provide essential resources to vulnerable families. This includes funding and executing <strong className="text-zinc-900 font-medium">home renovations</strong> for those in unsafe living conditions, ensuring regular <strong className="text-zinc-900 font-medium">food distribution</strong> to eradicate hunger, and providing <strong className="text-zinc-900 font-medium">clothing and daily necessities</strong> to those who need it most.
-                </p>
-                <p>
-                  It is a quiet, steadfast commitment to giving back to the communities that support us.
-                </p>
+                <p>For Dr. Biju K., leadership is not confined to the office. It is defined by the tangible, on-the-ground difference made in the lives of those facing life's toughest chapters.</p>
+                <p>Through dedicated, hands-on charitable initiatives, he personally spearheads efforts to provide essential resources to vulnerable families. This includes funding and executing <strong className="text-zinc-900 font-medium">home renovations</strong> for those in unsafe living conditions, ensuring regular <strong className="text-zinc-900 font-medium">food distribution</strong> to eradicate hunger, and providing <strong className="text-zinc-900 font-medium">clothing and daily necessities</strong> to those who need it most.</p>
+                <p>It is a quiet, steadfast commitment to giving back to the communities that support us.</p>
               </div>
             </motion.div>
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: premiumEase }} className="order-1 lg:order-2 relative">
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-[2.5rem] bg-zinc-100 border border-zinc-200 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] relative">
+                <motion.img whileHover={{ scale: 1.05 }} transition={{ duration: 1.5, ease: "easeOut" }} src="/boss2.jpeg" alt="Dr. Biju K. in office" className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-            {/* Right: New Image */}
+      {/* 4. VIDEO — rotated 9:16 portrait (PERFECTLY ALIGNED) */}
+      <section className="py-24 md:py-40 px-6 md:px-12 bg-zinc-950 relative overflow-hidden">
+        <div className="max-w-[1200px] mx-auto">
+
+          {/* Section heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: premiumEase }}
+            className="flex flex-col items-center text-center mb-16 md:mb-32"
+          >
+            <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-500 uppercase mb-4 block">Captured in the Field</span>
+            <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tighter text-white">
+              The Moment.<br /><span className="text-zinc-600 italic">Unscripted.</span>
+            </h2>
+          </motion.div>
+
+          {/* Alignment Container: Grid Layout guarantees perfect edge alignment */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+
+            {/* Left Column: Portrait video container */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1.5, ease: premiumEase }}
-              className="order-1 lg:order-2 relative"
+              /* FIX: Added justify-start so it anchors to the left edge of its grid cell */
+              className="flex justify-center lg:justify-start w-full"
             >
-              <div className="aspect-[4/3] w-full overflow-hidden rounded-[2.5rem] bg-zinc-100 border border-zinc-200 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] relative">
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
-                  src="/boss2.jpeg"
-                  alt="Dr. Biju K. in office"
-                  className="w-full h-full object-cover"
+              <div className="relative overflow-hidden rounded-[2rem] border border-zinc-800 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] w-full max-w-[360px] aspect-[9/16]">
+                <video
+                  src="/award-ceremony.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute top-1/2 left-1/2"
+                  style={{
+                    height: "100%", 
+                    width: "177.77%", /* Correct ratio for 16:9 rotated to 9:16 */
+                    maxWidth: "none",
+                    transform: "translate(-50%, -50%) rotate(90deg)",
+                    objectFit: "cover",
+                  }}
                 />
+              </div>
+            </motion.div>
+
+            {/* Right Column: Side text */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: premiumEase }}
+              /* FIX: Left-aligned text inside its grid cell */
+              className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left w-full max-w-lg mx-auto lg:mx-0"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse shrink-0" />
+                <span className="font-orbitron text-[9px] tracking-[0.4em] text-zinc-400 uppercase">Rotary Club of Kundara, 2026</span>
+              </div>
+              
+              <h3 className="font-audiowide text-3xl md:text-4xl text-white uppercase leading-tight mb-6">
+                Honorary Doctorate <br /><span className="text-zinc-500 italic">Conferred.</span>
+              </h3>
+              
+              <p className="text-zinc-400 font-light leading-relaxed text-base md:text-lg mb-8">
+                A rare and distinguished recognition bestowed upon Dr. Biju K. by the Rotary Club of Kundara — acknowledging not just his business acumen, but his unwavering commitment to community welfare and silent philanthropy.
+              </p>
+              
+              <div className="flex flex-col lg:flex-row items-center gap-4">
+                <div className="w-8 h-[1px] bg-amber-500/50 shrink-0 hidden lg:block" />
+                <span className="font-orbitron text-[9px] tracking-[0.3em] text-amber-500 uppercase">Charter No. 15225 · District 3211</span>
               </div>
             </motion.div>
 
@@ -238,101 +211,50 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Vision & Mission */}
+      {/* 5. Vision & Mission */}
       <section className="py-24 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid md:grid-cols-2 gap-12 md:gap-24"
-        >
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -15, boxShadow: "0px 40px 80px -20px rgba(0,0,0,0.1)" }}
-            className="bg-zinc-50 p-12 md:p-16 rounded-[2.5rem] border border-zinc-100 relative overflow-hidden group cursor-default"
-          >
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid md:grid-cols-2 gap-12 md:gap-24">
+          <motion.div variants={itemVariants} whileHover={{ y: -15, boxShadow: "0px 40px 80px -20px rgba(0,0,0,0.1)" }} className="bg-zinc-50 p-12 md:p-16 rounded-[2.5rem] border border-zinc-100 relative overflow-hidden group cursor-default">
             <h2 className="font-audiowide text-3xl mb-8 uppercase relative z-10">Our Vision</h2>
-            <p className="text-zinc-500 leading-relaxed font-light text-lg relative z-10">
-              To unite diverse industries through uncompromising premium quality and leave a lasting legacy in Kerala.
-            </p>
+            <p className="text-zinc-500 leading-relaxed font-light text-lg relative z-10">To unite diverse industries through uncompromising premium quality and leave a lasting legacy in Kerala.</p>
           </motion.div>
-
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -15, boxShadow: "0px 40px 80px -20px rgba(0,0,0,0.1)" }}
-            className="bg-zinc-50 p-12 md:p-16 rounded-[2.5rem] border border-zinc-100 relative overflow-hidden group cursor-default"
-          >
+          <motion.div variants={itemVariants} whileHover={{ y: -15, boxShadow: "0px 40px 80px -20px rgba(0,0,0,0.1)" }} className="bg-zinc-50 p-12 md:p-16 rounded-[2.5rem] border border-zinc-100 relative overflow-hidden group cursor-default">
             <h2 className="font-audiowide text-3xl mb-8 uppercase relative z-10">Our Mission</h2>
-            <p className="text-zinc-500 leading-relaxed font-light text-lg relative z-10">
-              To operate with absolute transparency, innovative solutions, and deep empathy for our communities.
-            </p>
+            <p className="text-zinc-500 leading-relaxed font-light text-lg relative z-10">To operate with absolute transparency, innovative solutions, and deep empathy for our communities.</p>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* 5. Core Values */}
+      {/* 6. Core Values */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-white border-t border-zinc-100">
         <div className="max-w-[1400px] mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: premiumEase }}
-            className="flex flex-col items-center text-center mb-20 md:mb-32"
-          >
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: premiumEase }} className="flex flex-col items-center text-center mb-20 md:mb-32">
             <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-400 uppercase mb-4 block">Foundational Architecture</span>
             <h2 className="font-audiowide text-4xl md:text-6xl uppercase tracking-tight">The Pillars</h2>
           </motion.div>
-
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
-          >
+          <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {VALUES.map((val) => (
-              <motion.div 
-                key={val.id}
-                variants={itemVariants}
-                whileHover={{ y: -10, scale: 1.02, backgroundColor: "#09090b", color: "#ffffff" }}
-                className="p-10 border border-zinc-200 rounded-[2rem] text-zinc-950 transition-colors group cursor-default shadow-sm hover:shadow-2xl"
-              >
+              <motion.div key={val.id} variants={itemVariants} whileHover={{ y: -10, scale: 1.02, backgroundColor: "#09090b", color: "#ffffff" }} className="p-10 border border-zinc-200 rounded-[2rem] text-zinc-950 transition-colors group cursor-default shadow-sm hover:shadow-2xl">
                 <h3 className="font-audiowide text-2xl uppercase mb-4">{val.title}</h3>
-                <p className="font-light text-zinc-500 group-hover:text-zinc-400 leading-relaxed transition-colors">
-                  {val.desc}
-                </p>
+                <p className="font-light text-zinc-500 group-hover:text-zinc-400 leading-relaxed transition-colors">{val.desc}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* 6. Institutional CTA */}
+      {/* 7. CTA */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-zinc-50 text-center border-t border-zinc-200">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: premiumEase }}
-          className="max-w-3xl mx-auto flex flex-col items-center"
-        >
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1, ease: premiumEase }} className="max-w-3xl mx-auto flex flex-col items-center">
           <span className="font-orbitron text-[10px] tracking-[0.5em] text-zinc-400 uppercase mb-6 block">Strategic Alignment</span>
           <h2 className="font-audiowide text-4xl md:text-5xl uppercase tracking-tight mb-8">Partner With Excellence</h2>
-          <p className="text-zinc-500 mb-12 leading-relaxed font-light text-lg">
-            Discover how BS Asset Solutions can assist you across our diverse range of services.
-          </p>
-          
-          <Link 
-            href="/contact" 
-            className="group flex items-center justify-between gap-8 bg-zinc-950 text-white px-8 py-5 rounded-full shadow-xl hover:scale-105 transition-all duration-500"
-          >
+          <p className="text-zinc-500 mb-12 leading-relaxed font-light text-lg">Discover how BS Asset Solutions can assist you across our diverse range of services.</p>
+          <Link href="/contact" className="group flex items-center justify-between gap-8 bg-zinc-950 text-white px-8 py-5 rounded-full shadow-xl hover:scale-105 transition-all duration-500">
             <span className="font-orbitron text-[10px] font-bold tracking-[0.4em] uppercase ml-4">Engage Our Team</span>
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-zinc-950 group-hover:rotate-45 transition-transform duration-500">
-               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-               </svg>
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </div>
           </Link>
         </motion.div>
